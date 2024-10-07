@@ -17,6 +17,7 @@ jobs:
           sudo apt-get install -y make net-tools
 
       - name: Compile project
+        working-directory: ~/0.github/Expense-Watcher
         run: |
           ls -a
   
