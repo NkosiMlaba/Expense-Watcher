@@ -25,6 +25,12 @@ tests:
 webapi: build
 	java -jar $(WEBAPI_JAR_FILE)
 
+# Target to build and run webapi, skipping tests
+.PHONY: webapi-no-tests
+webapi-no-tests: build
+	mvn clean package -DskipTests
+	java -jar $(WEBAPI_JAR_FILE)
+
 # Target to run webapi directly without building
 .PHONY: run-webapi
 run-webapi: 

@@ -112,6 +112,34 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
             </plugin>
+
+            <!-- make the webapi jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                            <id>make-webapi-jar</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                            <configuration>
+                                <descriptorRefs>
+                                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                                </descriptorRefs>
+                                <finalName>${project.artifactId}-${project.version}-webapi</finalName>
+                                <archive>
+                                    <manifest>
+                                        <mainClass>weshare.server.WeShareServer</mainClass>
+                                    </manifest>
+                                </archive>
+                                <classifier>webapi</classifier>
+                            </configuration>
+                        </execution>
+                    </executions>
+            </plugin>
         </plugins>
     </build>
 
