@@ -8,7 +8,7 @@ on:
 
 jobs:
   compile:
-    runs-on: maven:latest
+    runs-on: self-hosted
     steps:
 
       - name: Install dependencies
