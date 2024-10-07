@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout.html}">
+<head>
+    <title>Submit Payment Request - WeShare</title>
+</head>
+<body>
+<div layout:fragment="contents">
+    <section class="expenseList">
+        <h1>Submit a Payment Request for the Following Expense</h1>
+        <main>
+            <table>
+                <tr>
+                    <td><strong>Date:</strong></td>
+                    <td><span id="expense_date" th:text="${expense.date}"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Description:</strong></td>
+                    <td><span id="expense_description" th:text="${expense.description}"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Amount:</strong></td>
+                    <td><span id="expense_amount" th:text="${expense.amount}"></span></td>
+                </tr>
+            </table>
+
+            <div id="expenses" th:unless="${#lists.isEmpty(expense.listOfPaymentRequests())}">
+                <h2>Previous Payment Requests for This Expense</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Who</th>
+                        <th>Due</th>
+                        <th>Paid?</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="expensePayment : ${expense.listOfPaymentRequests()}">
+                        <tr>
+                            <td>
+                                <span th:id="${'paymentrequest_who_' + expensePayment.id}" th:text="${expensePayment.getPersonWhoShouldPayBack().getName()}"></span>
+                            </td>
+                            <td>
+                                <span th:id="${'paymentrequest_date_' + expensePayment.id}" th:text="${expensePayment.getDueDate()}"></span>
+                            </td>
+                            <td>
+                                <span th:id="${'paymentrequest_paid_' + expensePayment.id}" th:if="${expensePayment.isPaid()}">Yes</span>
+                                <span th:id="${'paymentrequest_paid_' + expensePayment.id}" th:unless="${expensePayment.isPaid()}">No</span>
+                            </td>
+                            <td>
+                                <span th:id="${'paymentrequest_amount_' + expensePayment.id}" th:text="${expensePayment.getAmountToPay()}"></span>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3"><strong>Total Amount of Payments Requested:</strong></td>
+                        <td id="total_paymentrequest" th:text="${expense.totalAmountOfPaymentsRequested()}"></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <form method="post" action="/paymentrequest.action" enctype="application/x-www-form-urlencoded">
+                <label for="email">Email Address of the Person to Pay You:</label>
+                <input name="email" id="email" type="email" required placeholder="e.g. person@example.com" autofocus>
+
+                <label for="amount">Amount They Should Pay (Maximum: <span th:text="${expense.amount}">ZAR 300.00</span>):</label>
+                <input name="amount" id="amount" type="number" required min="1" placeholder="Enter amount">
+
+                <label for="due_date">Due Date for Payment (dd/mm/yyyy):</label>
+                <input name="due_date" id="due_date" type="text" required placeholder="e.g. 21/10/2021">
+
+                <input name="expense_id" id="expense_id" type="hidden" th:value="${expense.id}">
+
+                <input id="submit" type="submit" value="submit"/>
+            </form>
+        </main>
+    </section>
+</div>
+</body>
+</html>

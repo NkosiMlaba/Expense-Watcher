@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/layout.html}">
+<head>
+    <title>Add Expense</title>
+</head>
+<body>
+<div layout:fragment="contents">
+    <h2>Add a New Expense</h2>
+
+    <!-- Form for adding a new expense -->
+    <form method="post" action="/expense.action" enctype="application/x-www-form-urlencoded">
+        <section class="expenseList">
+            <!-- Description input -->
+            <div>
+                <label for="description">Description:</label>
+                <input id="description" name="description" type="text" required placeholder="Enter expense description">
+            </div>
+
+            <!-- Date input with format guidance -->
+            <div>
+                <label for="date">Date (dd/mm/yyyy, e.g., 21/10/2021):</label>
+                <input id="date" name="date" type="date" required placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}">
+                <small>Format: DD/MM/YYYY</small> <!-- Help text for date format -->
+            </div>
+
+            <!-- Amount input -->
+            <div>
+                <label for="amount">Amount (no cents allowed):</label>
+                <input id="amount" name="amount" type="number" required min="0" step="1" placeholder="Enter amount">
+            </div>
+        </section>
+
+        <!-- Submit button to submit the form -->
+        <input id="submit" type="submit" value="submit"/>
+
+    </form>
+
+</div>
+</body>
+
+</html>

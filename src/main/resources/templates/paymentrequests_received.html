@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout.html}">
+<head>
+    <title>Payment Requests Received - WeShare</title>
+</head>
+<body>
+<div layout:fragment="contents">
+    <section class="expenseList">
+        <h2>People that you owe</h2>
+        <!-- Message displayed when there are no payment requests -->
+        <p id="no_payment_requests_received" th:if="${#lists.isEmpty(newexpenses)}">You don't owe anyone anything!</p>
+
+        <!-- Container for displaying payment requests if they exist -->
+        <div id="payment_requests_received" th:unless="${#lists.isEmpty(newexpenses)}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Who</th>               <!-- Person who requested payment -->
+                    <th>What</th>              <!-- Description of the expense -->
+                    <th>Due In (Days)</th>     <!-- Days left to settle the payment -->
+                    <th>How Much</th>          <!-- Amount to be paid -->
+                    <th>Action</th>            <!-- Action to pay or indicate payment status -->
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iterate through each payment request -->
+                <th:block th:each="expense, count : ${newexpenses}">
+                    <tr>
+                        <td>
+                            <!-- Name of the person requesting payment -->
+                            <span th:id="${'payer_' + expense.id}" th:text="${expense.getPersonRequestingPayment().getName()}"></span>
+                        </td>
+                        <td>
+                            <!-- Description of the payment request -->
+                            <span th:id="${'payment_request_' + expense.id}" th:text="${expense.getDescription()}"></span>
+                        </td>
+                        <td>
+                            <!-- Days left to pay -->
+                            <span th:text="${expense.daysLeftToPay()}"></span>
+                        </td>
+                        <td>
+                            <!-- Amount to be paid -->
+                            <span th:id="${'amount_' + expense.id}" th:text="${expense.getAmountToPay()}"></span>
+                        </td>
+                        <td>
+                            <!-- Payment form for unpaid requests -->
+                            <form th:unless="${expense.isPaid()}" method="post" action="/payments.action" enctype="application/x-www-form-urlencoded">
+                                <input id="submit" type="submit" value="pay"/> <!-- Submit button -->
+                                <input name="payment_request_id" th:value="${expense.getId()}" type="hidden"> <!-- Hidden input for payment request ID -->
+                            </form>
+                            <!-- Checkbox indicating payment status for paid requests -->
+                            <input th:if="${expense.isPaid()}" th:id="'paid_' + ${count.index + 1}" type="checkbox" disabled="disabled" checked="checked">
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Total Unpaid:</strong></td> <!-- Label for total unpaid amount -->
+                    <td colspan="2"><span id="grand_total" th:text="${total}"></span></td> <!-- Display total unpaid amount -->
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+</div>
+</body>
+</html>

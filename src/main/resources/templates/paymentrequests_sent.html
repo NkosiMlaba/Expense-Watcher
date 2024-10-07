@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout.html}">
+<head>
+    <title>Expense Overview</title>
+</head>
+<body>
+<div layout:fragment="contents">
+    <section class="expenseList">
+        <h2>People That Owe Me</h2>
+
+        <!-- Display a message if there are no payment requests -->
+        <h1 id="no_payment_requests_sent" th:if="${#lists.isEmpty(newexpenses)}">Nobody owes you anything!</h1>
+
+        <!-- Render the payment request table if there are any expenses -->
+        <div id="payment_requests_sent" th:unless="${#lists.isEmpty(newexpenses)}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Who</th>
+                    <th>What</th>
+                    <th>Due In (Days)</th>
+                    <th>How Much</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iterate through each expense in newexpenses -->
+                <th:block th:each="expense : ${newexpenses}">
+                    <tr>
+                        <!-- Display the name of the person who should pay back -->
+                        <td><span th:id="${'person_' + expense.id}" th:text="${expense.getPersonWhoShouldPayBack().getName()}"></span></td>
+
+                        <!-- Display the description of the expense -->
+                        <td><span th:id="${'payment_request_' + expense.id}" th:text="${expense.getDescription()}"></span></td>
+
+                        <!-- Display the number of days left to pay -->
+                        <td><span th:text="${expense.daysLeftToPay()}"></span></td>
+
+                        <!-- Display the amount to be paid -->
+                        <td><span th:id="${'nett_' + expense.id}" th:text="${expense.getAmountToPay()}"></span></td>
+                    </tr>
+                </th:block>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Total Unpaid</th>
+                    <th colspan="2"></th>
+                    <!-- Display the grand total of unpaid amounts -->
+                    <td><span id="grand_total" th:text="${total}"></span></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+</div>
+</body>
+</html>
