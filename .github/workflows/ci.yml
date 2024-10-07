@@ -18,7 +18,6 @@ jobs:
 
       - name: Compile project
         run: |
-          make clean
           make all
   
   # unit_tests:
