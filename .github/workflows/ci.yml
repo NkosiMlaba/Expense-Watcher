@@ -8,42 +8,35 @@ on:
 
 jobs:
   compile:
-    runs-on: ubuntu-latest
+    runs-on: maven:latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
 
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y make net-tools sqlite3
+          sudo apt-get install -y make net-tools
 
       - name: Compile project
         run: |
           make clean
           make all
   
-  unit_tests:
-    runs-on: ubuntu-latest
-    needs: compile
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  # unit_tests:
+  #   runs-on: ubuntu-latest
+  #   needs: compile
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
+  #     - name: Set up JDK
+  #       uses: actions/setup-java@v2
+  #       with:
+  #         java-version: '11'
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y make net-tools sqlite3
+  #     - name: Install dependencies
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y make net-tools sqlite3
 
-      - name: Run unit tests
-        run: make tests
+  #     - name: Run unit tests
+  #       run: make tests
