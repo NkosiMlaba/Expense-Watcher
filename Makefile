@@ -1,5 +1,5 @@
 # Variables
-WEBAPI_JAR_FILE = target/resume-builder-1.0-SNAPSHOT-webapi-jar-with-dependencies.jar
+WEBAPI_JAR_FILE = target/weshare-mvc-exercise-1.0-SNAPSHOT-webapi-jar-with-dependencies.jar
 
 # Default target
 .PHONY: all
