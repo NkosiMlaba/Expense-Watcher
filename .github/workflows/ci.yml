@@ -19,7 +19,7 @@ jobs:
       - name: Compile project
         working-directory: ../../../../
         run: |
-          ls -a
+          make all
   
   # unit_tests:
   #   runs-on: ubuntu-latest
