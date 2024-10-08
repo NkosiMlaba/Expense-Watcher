@@ -15,9 +15,14 @@ clean:
 build:
 	mvn package
 
+# Build the project and package it into a JAR file
+.PHONY: build-no-tests
+build-no-tests:
+	mvn clean package -DskipTests
+
 # Run tests
 .PHONY: tests
-tests:
+tests: build
 	mvn test
 
 # Target to bild and run webapi
@@ -27,8 +32,7 @@ webapi: build
 
 # Target to build and run webapi, skipping tests
 .PHONY: webapi-no-tests
-webapi-no-tests: build
-	mvn clean package -DskipTests
+webapi-no-tests: build-no-tests
 	java -jar $(WEBAPI_JAR_FILE)
 
 # Target to run webapi directly without building
