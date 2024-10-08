@@ -39,6 +39,16 @@ jobs:
   build_image:
     runs-on: ubuntu-latest
     steps:
+      - 
+        name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make net-tools sqlite3
+      - 
+        name: Compile project
+        working-directory: ../../../../
+        run: |
+          make build-no-tests
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
