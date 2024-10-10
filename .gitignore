@@ -1,5 +1,7 @@
 target
 actions-runner
+.vscode
+.idea
 
 # Compiled class file
 *.class
