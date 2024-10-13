@@ -47,7 +47,6 @@ jobs:
           sudo apt-get install -y make net-tools sqlite3
 
       - name: Run unit tests
-        working-directory: ../../../../
         run: |
           make tests
 
