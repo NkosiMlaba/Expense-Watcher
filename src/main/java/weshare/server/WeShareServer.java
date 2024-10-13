@@ -51,7 +51,7 @@ public class WeShareServer {
         JavalinThymeleaf.configure(templateEngine());
 
         appServer = Javalin.create(config -> {
-            config.addStaticFiles(PAGES_DIR, Location.CLASSPATH);
+            config.addStaticFiles(TEMPLATES_DIR, Location.CLASSPATH);
             config.accessManager(accessManager());
             config.sessionHandler(sessionHandler());
         });
