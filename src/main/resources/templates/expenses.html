@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
 <head>
-    <title>My Expenses</title> <!-- Title for the page -->
+    <title>My Expenses</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -23,55 +23,51 @@
     <section class="expenseList">
         <h2>My Expenses</h2>
         <a id="add_expense" class="button" href="/newexpense">Add a new expense</a>
-
-        <!-- Message displayed if there are no expenses -->
         <p id="no_expenses" th:if="${#lists.isEmpty(expenses)}">You don't have any expenses!</p>
-
-        <!-- Expense table displayed if there are expenses -->
         <div id="expenses" th:unless="${#lists.isEmpty(expenses)}">
             <table>
                 <thead>
                 <tr>
-                    <th>When</th> <!-- Column for the date of the expense -->
-                    <th>What</th> <!-- Column for the description of the expense -->
-                    <th>Amount Spent</th> <!-- Column for the amount spent -->
-                    <th>Payments Requested</th> <!-- Column for total payments requested -->
-                    <th>Payments Received</th> <!-- Column for total payments received -->
-                    <th>Net Expense</th> <!-- Column for the net amount of the expense -->
+                    <th>When</th>
+                    <th>What</th>
+                    <th>Amount Spent</th>
+                    <th>Payments Requested</th>
+                    <th>Payments Received</th>
+                    <th>Net Expense</th>\
                 </tr>
                 </thead>
                 <tbody>
                 <th:block th:each="expense : ${expenses}">
                     <tr>
                         <td>
-                            <span th:id="'date_' + ${expense.id}" th:text="${expense.date}"></span> <!-- Display expense date -->
+                            <span th:id="'date_' + ${expense.id}" th:text="${expense.date}"></span>
                         </td>
                         <td>
                             <a th:href="@{/paymentrequest(expenseId=${expense.id})}"
                                th:id="'payment_request_' + ${expense.id}"
-                               th:text="${expense.description}"></a> <!-- Link to payment request -->
+                               th:text="${expense.description}"></a>
                         </td>
                         <td>
-                            <span th:id="'nett_' + ${expense.id}" th:text="${expense.amount}"></span> <!-- Display amount spent -->
+                            <span th:id="'nett_' + ${expense.id}" th:text="${expense.amount}"></span>
                         </td>
                         <td>
-                            <span th:id="'payments_requested_' + ${expense.id}" th:text="${expense.totalAmountOfPaymentsRequested()}"></span> <!-- Display total requested -->
+                            <span th:id="'payments_requested_' + ${expense.id}" th:text="${expense.totalAmountOfPaymentsRequested()}"></span>
                         </td>
                         <td>
-                            <span th:id="'payments_received_' + ${expense.id}" th:text="${expense.totalAmountForPaymentsReceived()}"></span> <!-- Display total received -->
+                            <span th:id="'payments_received_' + ${expense.id}" th:text="${expense.totalAmountForPaymentsReceived()}"></span>
                         </td>
                         <td>
-                            <span th:id="'nett_expense_' + ${expense.id}" th:text="${expense.amount.subtract(expense.totalAmountForPaymentsReceived())}"></span> <!-- Calculate and display net expense -->
+                            <span th:id="'nett_expense_' + ${expense.id}" th:text="${expense.amount.subtract(expense.totalAmountForPaymentsReceived())}"></span>
                         </td>
                     </tr>
                 </th:block>
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th>Total Expenses</th> <!-- Header for total expense -->
-                    <td colspan="4"></td> <!-- Span remaining columns for alignment -->
+                    <th>Total Expenses</th>
+                    <td colspan="4"></td>
                     <td>
-                        <span id="grand_total" th:text="${total}"></span> <!-- Display grand total of all expenses -->
+                        <span id="grand_total" th:text="${total}"></span>
                     </td>
                 </tr>
                 </tfoot>
