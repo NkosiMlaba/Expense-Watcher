@@ -42,7 +42,7 @@ import static weshare.model.MoneyHelper.amountOf;
 
 public class WeShareServer {
     public static final String SESSION_USER_KEY = "user";
-    private static final String PAGES_DIR = "/static/";
+    private static final String PAGES_DIR = "src/main/resources/static";
     private static final String TEMPLATES_DIR = "/templates/";
 
     private final Javalin appServer;
@@ -52,7 +52,7 @@ public class WeShareServer {
 
         appServer = Javalin.create(config -> {
             config.addStaticFiles(TEMPLATES_DIR, Location.CLASSPATH);
-            config.addStaticFiles(PAGES_DIR, Location.CLASSPATH);
+            config.addStaticFiles(PAGES_DIR, Location.EXTERNAL);
             config.accessManager(accessManager());
             config.sessionHandler(sessionHandler());
         });
