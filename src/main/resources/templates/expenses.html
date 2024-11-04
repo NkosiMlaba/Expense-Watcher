@@ -10,70 +10,73 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<div layout:fragment="contents">
-    <h1>WeShare</h1>
-    <p id="user" th:text="${session.user.email}">person@domain.com</p>
-    <nav>
-        <a id="expenses" href="/expenses">Expenses</a>
-        <a id="paymentrequests_sent" href="/paymentrequests_sent">Payment Requests Sent</a>
-        <a id="paymentrequests_received" href="/paymentrequests_received">Payment Request Received</a>
-        <a href="/logout" id="logout" th:text="'Logout ' + ${session.user.name}">Logout Person</a>
-    </nav>
-    
-    <section class="expenseList">
-        <h2>My Expenses</h2>
-        <a id="add_expense" class="button" href="/newexpense">Add a new expense</a>
-        <p id="no_expenses" th:if="${#lists.isEmpty(expenses)}">You don't have any expenses!</p>
-        <div id="expenses" th:unless="${#lists.isEmpty(expenses)}">
-            <table>
-                <thead>
-                <tr>
-                    <th>When</th>
-                    <th>What</th>
-                    <th>Amount Spent</th>
-                    <th>Payments Requested</th>
-                    <th>Payments Received</th>
-                    <th>Net Expense</th>\
-                </tr>
-                </thead>
-                <tbody>
-                <th:block th:each="expense : ${expenses}">
-                    <tr>
-                        <td>
-                            <span th:id="'date_' + ${expense.id}" th:text="${expense.date}"></span>
-                        </td>
-                        <td>
-                            <a th:href="@{/paymentrequest(expenseId=${expense.id})}"
-                               th:id="'payment_request_' + ${expense.id}"
-                               th:text="${expense.description}"></a>
-                        </td>
-                        <td>
-                            <span th:id="'nett_' + ${expense.id}" th:text="${expense.amount}"></span>
-                        </td>
-                        <td>
-                            <span th:id="'payments_requested_' + ${expense.id}" th:text="${expense.totalAmountOfPaymentsRequested()}"></span>
-                        </td>
-                        <td>
-                            <span th:id="'payments_received_' + ${expense.id}" th:text="${expense.totalAmountForPaymentsReceived()}"></span>
-                        </td>
-                        <td>
-                            <span th:id="'nett_expense_' + ${expense.id}" th:text="${expense.amount.subtract(expense.totalAmountForPaymentsReceived())}"></span>
-                        </td>
-                    </tr>
-                </th:block>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Total Expenses</th>
-                    <td colspan="4"></td>
-                    <td>
-                        <span id="grand_total" th:text="${total}"></span>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
+    <div class="centered">
+        <div layout:fragment="contents">
+            <h1>WeShare</h1>
+            <p id="user" th:text="${session.user.email}">person@domain.com</p>
+            <nav>
+                <a id="expenses" href="/expenses">Expenses</a>
+                <a id="paymentrequests_sent" href="/paymentrequests_sent">Payment Requests Sent</a>
+                <a id="paymentrequests_received" href="/paymentrequests_received">Payment Request Received</a>
+                <a href="/logout" id="logout" th:text="'Logout ' + ${session.user.name}">Logout Person</a>
+            </nav>
+            
+            <section class="expenseList">
+                <h2>My Expenses</h2>
+                <a id="add_expense" class="button" href="/newexpense">Add a new expense</a>
+                <p id="no_expenses" th:if="${#lists.isEmpty(expenses)}">You don't have any expenses!</p>
+                <div id="expenses" th:unless="${#lists.isEmpty(expenses)}">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>When</th>
+                            <th>What</th>
+                            <th>Amount Spent</th>
+                            <th>Payments Requested</th>
+                            <th>Payments Received</th>
+                            <th>Net Expense</th>\
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="expense : ${expenses}">
+                            <tr>
+                                <td>
+                                    <span th:id="'date_' + ${expense.id}" th:text="${expense.date}"></span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/paymentrequest(expenseId=${expense.id})}"
+                                       th:id="'payment_request_' + ${expense.id}"
+                                       th:text="${expense.description}"></a>
+                                </td>
+                                <td>
+                                    <span th:id="'nett_' + ${expense.id}" th:text="${expense.amount}"></span>
+                                </td>
+                                <td>
+                                    <span th:id="'payments_requested_' + ${expense.id}" th:text="${expense.totalAmountOfPaymentsRequested()}"></span>
+                                </td>
+                                <td>
+                                    <span th:id="'payments_received_' + ${expense.id}" th:text="${expense.totalAmountForPaymentsReceived()}"></span>
+                                </td>
+                                <td>
+                                    <span th:id="'nett_expense_' + ${expense.id}" th:text="${expense.amount.subtract(expense.totalAmountForPaymentsReceived())}"></span>
+                                </td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Total Expenses</th>
+                            <td colspan="4"></td>
+                            <td>
+                                <span id="grand_total" th:text="${total}"></span>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
         </div>
-    </section>
-</div>
+    </div>
+        
 </body>
 </html>

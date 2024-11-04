@@ -11,18 +11,22 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<h1>WeShare</h1>
-<p id="user" th:text="${session.user.email}">person@domain.com</p>
-<nav>
-    <a id="expenses" href="/expenses">Expenses</a>
-    <a id="paymentrequests_sent" href="/paymentrequests_sent">Payment Requests Sent</a>
-    <a id="paymentrequests_received" href="/paymentrequests_received">Payment Request Received</a>
-    <a href="/logout" id="logout" th:text="'Logout ' + ${session.user.name}">Logout Person</a>
-</nav>
+    <div class="centered">
+        <h1>WeShare</h1>
+        <p id="user" th:text="${session.user.email}">person@domain.com</p>
+        <nav>
+            <a id="expenses" href="/expenses">Expenses</a>
+            <a id="paymentrequests_sent" href="/paymentrequests_sent">Payment Requests Sent</a>
+            <a id="paymentrequests_received" href="/paymentrequests_received">Payment Request Received</a>
+            <a href="/logout" id="logout" th:text="'Logout ' + ${session.user.name}">Logout Person</a>
+        </nav>
 
-<main>
-    <div layout:fragment="contents">
+        <main>
+            <div layout:fragment="contents">
+            </div>
+        </main>
     </div>
-</main>
+
+
 </body>
 </html>

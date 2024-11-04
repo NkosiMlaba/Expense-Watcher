@@ -9,25 +9,29 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<div layout:fragment="contents">
-    <h1>WeShare</h1>
-    <p id="user" th:text="${session.user.email}">person@domain.com</p>
-    <nav>
-        <a id="expenses" href="/expenses">Expenses</a>
-        <a id="paymentrequests_sent" href="/paymentrequests_sent">Payment Requests Sent</a>
-        <a id="paymentrequests_received" href="/paymentrequests_received">Payment Request Received</a>
-        <a href="/logout" id="logout" th:text="'Logout ' + ${session.user.name}">Logout Person</a>
-    </nav>
-    
-    <h2>Ooops! Something bad happened</h2>
-    <p>You should probably go back and try again.
-    And if that doesn't work, hold your breath and call a friend.</p>
+    <div class="centered">
+        <div layout:fragment="contents"></div>
+            <h1>WeShare</h1>
+            <p id="user" th:text="${session.user.email}">person@domain.com</p>
+            <nav>
+                <a id="expenses" href="/expenses">Expenses</a>
+                <a id="paymentrequests_sent" href="/paymentrequests_sent">Payment Requests Sent</a>
+                <a id="paymentrequests_received" href="/paymentrequests_received">Payment Request Received</a>
+                <a href="/logout" id="logout" th:text="'Logout ' + ${session.user.name}">Logout Person</a>
+            </nav>
+            
+            <h2>Ooops! Something bad happened</h2>
+            <p>You should probably go back and try again.
+            And if that doesn't work, hold your breath and call a friend.</p>
 
-    <h3>This is what happened</h3>
-    <div class="error" th:text="${exception.message}"></div>
-    <h4>The fine print</h4>
-    <div class="stacktrace" th:utext="${stacktrace}"></div>
-</div>
+            <h3>This is what happened</h3>
+            <div class="error" th:text="${exception.message}"></div>
+            <h4>The fine print</h4>
+            <div class="stacktrace" th:utext="${stacktrace}"></div>
+        </div>
+    </div>
+    
+    
 </body>
 
 </html>
