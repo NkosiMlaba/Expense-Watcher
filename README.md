@@ -22,7 +22,7 @@ Expense-Watcher is a web application that allows users to track their expenses. 
 1. Run the server using:
         
         make webapi
-2. Run the frontend by visiting the url `http://localhost:7000/` on a browser
+2. Run the frontend by visiting the url `http://localhost:5050` on a browser
 
 #### Building the Docker image:
     sudo docker build -t expense-tracker-webapi .
