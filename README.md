@@ -3,8 +3,6 @@
 ## Project Description:
 Expense-Watcher is a web application that allows users to track their expenses. It provides a user-friendly interface to add, edit, and delete expenses. For my purposes the application serves as a base for practicing deployments on Azure. Additionally, build scripts and docker containers were created to assist in this task.
 
-## View live site [here](https://expense-watcher-application.azurewebsites.net/):
-
 ## System requirements:
 - Java 17 or higher
 - Internet browser
